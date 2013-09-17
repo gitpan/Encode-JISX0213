@@ -33,6 +33,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Encode" : "2.12",
             "Encode::ISO2022" : "0"
          }
       }
@@ -46,5 +47,5 @@
          "url" : "http://hatuka.nezumi.nu/repos/Encode-JISX0213/"
       }
    },
-   "version" : "0.000_07"
+   "version" : "0.01_00"
 }
