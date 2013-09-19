@@ -3,7 +3,7 @@ package Encode::JISX0213;
 use strict;
 use warnings;
 use base qw(Encode::ISO2022);
-our $VERSION = '0.01_02';
+our $VERSION = '0.01_03';
 
 use Encode::ISOIRSingle;
 use Encode::JISLegacy;

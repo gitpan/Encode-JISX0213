@@ -9,6 +9,7 @@ t/pod.t
 t/x0213-1-ascii.utf
 t/x0213-1-compatible.enc
 t/x0213-1.enc
+t/x0213-1-strict.enc
 t/x0213-2.enc
 t/x0213-2.utf
 t/x0213-2000-1-ascii.utf
