@@ -1,30 +1,34 @@
+#-*- perl -*-
+#-*- coding: utf-8 -*-
+
 package Encode::JISX0213;
 
 use strict;
 use warnings;
 use base qw(Encode::ISO2022);
-our $VERSION = '0.01_03';
+our $VERSION = '0.01_04';
 
 use Encode::ISOIRSingle;
 use Encode::JISLegacy;
 use Encode::JISX0213::CCS;
 
-Encode::define_alias(qr/\beuc-?(jis|jp)-?2004$/i => '"euc-jis-2004"');
-$Encode::Encoding{'euc-jis-2004'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Alias => qr/\beuc-?(jis|jp)-?2004$/i,
+    Name  => 'euc-jis-2004',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	},
-	{encoding => $Encode::Encoding{'c1-ctrl'},},
+	{encoding => 'c1-ctrl',},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-ascii'},
+	    encoding => 'jis-x-0213-plane1-ascii',
 	    gr       => 1,
 	    g_init   => 'g1',
 	    range    => '\xA1-\xFE',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    gr       => 1,
 	    g_init   => 'g3',
 	    ss       => "\x8F",
@@ -32,7 +36,7 @@ $Encode::Encoding{'euc-jis-2004'} = bless {
 	},
 
 	# Unrecommended encodings
-	{   encoding => $Encode::Encoding{'jis-x-0201-right'},
+	{   encoding => 'jis-x-0201-right',
 	    gr       => 1,
 	    g_init   => 'g2',
 	    ss       => "\x8E",
@@ -40,37 +44,36 @@ $Encode::Encoding{'euc-jis-2004'} = bless {
 
 	# Nonstandard
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0212-ascii'},
+	    encoding => 'jis-x-0212-ascii',
 	    gr       => 1,
 	    g_init   => 'g3',
 	    ss       => "\x8F",
 	    range    => '\xA1-\xFE',
 	},
     ],
-    Init    => '',
-    Name    => 'euc-jis-2004',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
+);
 
 Encode::define_alias(qr/\beucjisx0213$/i              => '"euc-jisx0213"');
 Encode::define_alias(qr/\beuc.*jp[ \-]?(?:2000|2k)$/i => '"euc-jisx0213"');
 Encode::define_alias(qr/\bjp.*euc[ \-]?(2000|2k)$/i   => '"euc-jisx0213"');
 Encode::define_alias(qr/\bujis[ \-]?(?:2000|2k)$/i    => '"euc-jisx0213"');
-$Encode::Encoding{'euc-jisx0213'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Name  => 'euc-jisx0213',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	},
-	{encoding => $Encode::Encoding{'c1-ctrl'},},
+	{encoding => 'c1-ctrl',},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-2000-ascii'},
+	    encoding => 'jis-x-0213-plane1-2000-ascii',
 	    gr       => 1,
 	    g_init   => 'g1',
 	    range    => '\xA1-\xFE',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    gr       => 1,
 	    g_init   => 'g3',
 	    ss       => "\x8F",
@@ -78,7 +81,7 @@ $Encode::Encoding{'euc-jisx0213'} = bless {
 	},
 
 	# Unrecommended encodings
-	{   encoding => $Encode::Encoding{'jis-x-0201-right'},
+	{   encoding => 'jis-x-0201-right',
 	    gr       => 1,
 	    g_init   => 'g2',
 	    ss       => "\x8E",
@@ -86,33 +89,33 @@ $Encode::Encoding{'euc-jisx0213'} = bless {
 
 	# Nonstandard
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0212-ascii'},
+	    encoding => 'jis-x-0212-ascii',
 	    gr       => 1,
 	    g_init   => 'g3',
 	    ss       => "\x8F",
 	    range    => '\xA1-\xFE',
 	},
     ],
-    Name    => 'euc-jisx0213',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
+);
 
-Encode::define_alias(qr/\biso-?2022-?jp-?2004$/i => '"iso-2022-jp-2004"');
-$Encode::Encoding{'iso-2022-jp-2004'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Alias => qr/\biso-?2022-?jp-?2004$/i,
+    Name  => 'iso-2022-jp-2004',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	    g_seq    => "\e\x28\x42",
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-ascii'},
+	    encoding => 'jis-x-0213-plane1-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x51",
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x50",
 	    range    => '\x21-\x7E',
@@ -121,13 +124,13 @@ $Encode::Encoding{'iso-2022-jp-2004'} = bless {
 	# Unrecommended encodings.
 	{   bytes    => 2,
 	    dec_only => 1,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-2000-ascii'},
+	    encoding => 'jis-x-0213-plane1-2000-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x4F",
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0208-ascii'},
+	    encoding => 'jis-x-0208-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x42",
 	    ss       => '', # encodes runs as short as possible
@@ -136,34 +139,33 @@ $Encode::Encoding{'iso-2022-jp-2004'} = bless {
 
 	# Nonstandard
     ],
-    Name    => 'iso-2022-jp-2004',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
+);
 
-Encode::define_alias(qr/\biso-?2022-?jp-?2004-?strict$/i =>
-	'"x-iso-2022-jp-2004-strict"');
-$Encode::Encoding{'x-iso-2022-jp-2004-strict'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Alias => qr/\biso-?2022-?jp-?2004-?strict$/i,
+    Name  => 'x-iso-2022-jp-2004-strict',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	    g_seq    => "\e\x28\x42",
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0208-0213-ascii'},
+	    encoding => 'jis-x-0208-0213-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x42",
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-ascii'},
+	    encoding => 'jis-x-0213-plane1-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x51",
 	    ss       => '', # encodes runs as short as possible
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x50",
 	    range    => '\x21-\x7E',
@@ -172,7 +174,7 @@ $Encode::Encoding{'x-iso-2022-jp-2004-strict'} = bless {
 	# Unrecommended encodings.
 	{   bytes    => 2,
 	    dec_only => 1,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-2000-ascii'},
+	    encoding => 'jis-x-0213-plane1-2000-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x4F",
 	    range    => '\x21-\x7E',
@@ -180,34 +182,33 @@ $Encode::Encoding{'x-iso-2022-jp-2004-strict'} = bless {
 
 	# Nonstandard
     ],
-    Name    => 'x-iso-2022-jp-2004-strict',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
+);
 
-Encode::define_alias(qr/\biso-?2022-?jp-?2004-?compatible$/i =>
-	'"x-iso-2022-jp-2004-compatible"');
-$Encode::Encoding{'x-iso-2022-jp-2004-compatible'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Alias => qr/\biso-?2022-?jp-?2004-?compatible$/i,
+    Name  => 'x-iso-2022-jp-2004-compatible',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	    g_seq    => "\e\x28\x42",
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0208-ascii'},
+	    encoding => 'jis-x-0208-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x42",
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-ascii'},
+	    encoding => 'jis-x-0213-plane1-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x51",
 	    ss       => '', # encodes runs as short as possible
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x50",
 	    range    => '\x21-\x7E',
@@ -216,7 +217,7 @@ $Encode::Encoding{'x-iso-2022-jp-2004-compatible'} = bless {
 	# Unrecommended encodings.
 	{   bytes    => 2,
 	    dec_only => 1,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-2000-ascii'},
+	    encoding => 'jis-x-0213-plane1-2000-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x4F",
 	    range    => '\x21-\x7E',
@@ -224,26 +225,26 @@ $Encode::Encoding{'x-iso-2022-jp-2004-compatible'} = bless {
 
 	# Nonstandard
     ],
-    Name    => 'x-iso-2022-jp-2004-compatible',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
+);
 
-Encode::define_alias(qr/\biso-?2022-?jp-?3$/i => '"iso-2022-jp-3"');
-$Encode::Encoding{'iso-2022-jp-3'} = bless {
-    'CCS' => [
+__PACKAGE__->Define(
+    Alias => qr/\biso-?2022-?jp-?3$/i,
+    Name  => 'iso-2022-jp-3',
+    CCS   => [
 	{   cl       => 1,
-	    encoding => $Encode::Encoding{'ascii'},
+	    encoding => 'ascii',
 	    g_init   => 'g0',
 	    g_seq    => "\e\x28\x42",
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane1-2000-ascii'},
+	    encoding => 'jis-x-0213-plane1-2000-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x4F",
 	    range    => '\x21-\x7E',
 	},
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0213-plane2'},
+	    encoding => 'jis-x-0213-plane2',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x28\x50",
 	    range    => '\x21-\x7E',
@@ -251,7 +252,7 @@ $Encode::Encoding{'iso-2022-jp-3'} = bless {
 
 	# Unrecommended encoding.
 	{   bytes    => 2,
-	    encoding => $Encode::Encoding{'jis-x-0208-ascii'},
+	    encoding => 'jis-x-0208-ascii',
 	    g        => 'g0',
 	    g_seq    => "\e\x24\x42",
 	    ss       => '', # encodes runs as short as possible
@@ -260,11 +261,8 @@ $Encode::Encoding{'iso-2022-jp-3'} = bless {
 
 	# Nonstandard
     ],
-    Name    => 'iso-2022-jp-3',
     SubChar => "\x{3013}",
-} => __PACKAGE__;
-
-Encode::define_alias(qr/\bshift.*jis.*2004$/, '"shift_jis-2004"');
+);
 
 1;
 __END__
@@ -288,12 +286,12 @@ This module provides following encodings.
 
   Canonical         Alias                         Description
   --------------------------------------------------------------
-  euc-jis-2004      qr/\beuc-?(jis|jp)-?2004$/i   EUC encoding
-  iso-2022-jp-2004  qr/\biso-?2022-?jp-?2004$/i   7-bit encoding
-  shift_jis-2004    qr/\bshift.*jis.*2004$/i      "shift" encoding
+  euc-jis-2004      qr/\beuc-?(jis|jp)-?2004$/i   8 bit encoding
+  iso-2022-jp-2004  qr/\biso-?2022-?jp-?2004$/i   7 bit encoding
   --------------------------------------------------------------
+  Note: About "shift encoding" see Encode::ShiftJIS2004.
 
-For older release of JIS X 0213:
+Additionally, for older revision of JIS X 0213:
 
   Canonical         Alias                         Description
   --------------------------------------------------------------
@@ -304,7 +302,7 @@ For older release of JIS X 0213:
   iso-2022-jp-3     qr/\biso-?2022-?jp-?3$/i      JIS X 0213:2000
   --------------------------------------------------------------
 
-For transition from legacy standards:
+and for transition from legacy standards:
 
   Canonical         Alias                         Description
   --------------------------------------------------------------
@@ -321,7 +319,7 @@ To find out how to use this module in detail, see L<Encode>.
 =head2 Note on Variants
 
 C<x-iso-2022-jp-2004-strict> uses JIS X 0208 as much as possible,
-strictly confirming JIS X 0213:2004.
+strictly conforming to JIS X 0213:2004 Annex 2.
 It is compatible to other encodings.
 
 C<x-iso-2022-jp-2004-compatible> uses JIS X 0208 for the bit combinations
@@ -329,10 +327,10 @@ co-existing on JIS X 0208 and JIS X 0213 plane 1.
 It is I<not> compatible to other encodings;
 it had never been registered by any standards bodies.
 
-However, all encodings above
+However, encodings above
 perform C<-compatible> behavior to decode byte strings.
 Exception is C<x-iso-2022-jp-2004-strict>:
-it accepts only allowed JIS X 0208 sequences.
+It accepts only allowed JIS X 0208 sequences.
 
 =head1 SEE ALSO
 
@@ -341,7 +339,7 @@ I<7ビット及び8ビットの2バイト情報交換用符号化拡張漢字集
 (I<7-bit and 8-bit double byte coded extended KANJI sets for information
 interchange>), and its amendment JIS X 0213:2000/AMENDMENT 1:2004.
 
-L<Encode>, L<Encode::JP>, L<Encode::ISO2022JP2>.
+L<Encode>, L<Encode::JP>, L<Encode::ShiftJIS2004>.
 
 =head1 AUTHOR
 
