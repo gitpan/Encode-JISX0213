@@ -33,12 +33,11 @@
       },
       "runtime" : {
          "requires" : {
-            "Encode" : "2.12",
             "Encode::ISO2022" : "0.03"
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "license" : [
          "http://dev.perl.org/licenses/"
@@ -47,5 +46,5 @@
          "url" : "http://hatuka.nezumi.nu/repos/Encode-JISX0213/"
       }
    },
-   "version" : "0.01_05"
+   "version" : "0.02"
 }
