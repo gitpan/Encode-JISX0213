@@ -6,7 +6,7 @@ package Encode::JISX0213::CCS;
 use strict;
 use warnings;
 use base qw(Encode::Encoding);
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Carp qw(carp croak);
 use XSLoader;
@@ -183,7 +183,7 @@ sub decode {
 	$utf8 =~ tr/\x21-\x5B\x{00A5}\x5D-\x7D\x{203E}/\x{FF01}-\x{FF3B}\x{FFE5}\x{FF3D}-\x{FF5D}\x{FFE3}/;
     }
 
-    $_[1] = $str unless $chk & $LEAVE_SRC;
+    $_[1] = $str unless ref $chk or $chk & $LEAVE_SRC;
     return $utf8;
 }
 
@@ -214,8 +214,8 @@ This module provides followng coded character sets.
        jis-x-0213-plane1-2000-jis
   229  jis-x-0213-plane2       JIS X 0213:2000/2004 level 4 (plane 2)
 
-   -   jis-x-0208-0213         Common set of JIS X 0208 and JIS X 0213
-       jis-x-0208-0213-ascii
+   -   jis-x-0208-0213         Common set of JIS X 0208 and JIS X 0213,
+       jis-x-0208-0213-ascii   according to JIS X 0213:2004 Annex 2
        jis-x-0208-0213-jis
   ----------------------------------------------------------------
 
@@ -227,7 +227,8 @@ see L<Encode> and L<Encode::ISO2022>.
 =head2 Note on Variants
 
 Those suffixed "-ascii" and "-jis" use alternative names for the characters
-compatible to ISO/IEC 646 IRV and JIS X 0201 Latin set, respectively.
+compatible to ISO/IEC 646 IRV (virtually ASCII) and JIS X 0201 Latin set,
+respectively.
 
 =head2 Compatibility
 
